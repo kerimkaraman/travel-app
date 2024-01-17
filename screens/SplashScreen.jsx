@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Image } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import Animated, {
@@ -9,15 +9,18 @@ import Animated, {
 } from "react-native-reanimated";
 
 export default function SplashScreen({ navigation }) {
+  const [anStatus, setAnStatus] = useState(false);
   const anTransform = useSharedValue(-50);
   const anOpacity = useSharedValue(0);
 
   useEffect(() => {
-    setTimeout(() => {
-      anTransform.value = withSpring(anTransform.value + 50);
-      anOpacity.value = withSpring(anOpacity.value + 1);
-    }, 1000);
-    return () => clearTimeout();
+    if (!anStatus) {
+      setTimeout(() => {
+        anTransform.value = withSpring(anTransform.value + 50);
+        anOpacity.value = withSpring(anOpacity.value + 1);
+        setAnStatus(true);
+      }, 1000);
+    }
   }, []);
 
   const anStyle = useAnimatedStyle(() => {
@@ -54,9 +57,9 @@ export default function SplashScreen({ navigation }) {
         </View>
         <Pressable
           onPress={() => navigation.navigate("BottomTabs")}
-          className="bg-[#196EF2] flex-row justify-center items-center gap-x-4 mx-auto px-8 py-4 rounded-full"
+          className="bg-[#196EF2] flex-row justify-center items-center gap-x-4 mx-auto px-16 py-4 rounded-full"
         >
-          <Text className="text-white text-2xl text-center">SHOW ME</Text>
+          <Text className="text-white text-lg text-center">SHOW ME</Text>
           <AntDesign name="arrowright" size={24} color="white" />
         </Pressable>
       </View>
