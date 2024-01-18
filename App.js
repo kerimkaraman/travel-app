@@ -7,16 +7,8 @@ import { store } from "./store/store";
 export default function App() {
   return (
     <Provider store={store}>
-      <View style={styles.container}>
-        <AppNavigation />
-        <StatusBar style="auto" />
-      </View>
+      <AppNavigation />
+      <StatusBar style="auto" />
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

@@ -14,9 +14,11 @@ import { FIRESTORE } from "../firebaseConfig";
 import PlaceCard from "../components/PlaceCard";
 import { useSelector } from "react-redux";
 import LoadingScreen from "./LoadingScreen";
+import TypeWriterEffect from "react-native-typewriter-effect";
 
-export default function Homepage() {
+export default function Homepage({ navigation }) {
   const width = Dimensions.get("screen").width;
+
   const regions = [
     "All",
     "Europe",
@@ -64,8 +66,6 @@ export default function Homepage() {
     getData()
       .then(setData(filterData))
       .then(() => setIsLoading(false));
-
-    console.log(width / 2);
   }, []);
 
   return fetchControl == null || undefined ? (
@@ -87,9 +87,16 @@ export default function Homepage() {
           Kompassi
         </Text>
       </View>
-      <Pressable className="bg-[#F2F9FE] flex-row items-center justify-start w-[90%] mx-auto mt-6 px-4 space-x-4 py-2 rounded-full">
+      <Pressable
+        onPress={() => navigation.navigate("SearchScreen")}
+        className="bg-[#F2F9FE] flex-row items-center justify-start w-[90%] mx-auto mt-6 px-4 space-x-4 py-2 rounded-full"
+      >
         <Ionicons name="search" size={20} color="#B9B9B8" />
-        <Text className="text-lg text-[#B9B9B8]">Find places to go</Text>
+        <TypeWriterEffect
+          backspaceEffect={true}
+          content="Find places to go"
+          style={{ color: "#B9B9B8" }}
+        />
       </Pressable>
       <View className="flex-1">
         <ScrollView

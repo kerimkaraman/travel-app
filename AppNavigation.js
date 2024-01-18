@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SplashScreen from "./screens/SplashScreen";
 import BottomTabs from "./screens/BottomTabs";
 import PlaceScreen from "./screens/PlaceScreen";
+import MapScreen from "./screens/MapScreen";
+import SearchScreen from "./screens/SearchScreen";
 
 export default function AppNavigation() {
   const Stack = createNativeStackNavigator();
@@ -16,6 +18,8 @@ export default function AppNavigation() {
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
         <Stack.Screen name="PlaceScreen" component={PlaceScreen} />
+        <Stack.Screen name="MapScreen" component={MapScreen} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
