@@ -58,16 +58,12 @@ export default function PlaceScreen({ navigation, route }) {
           {data.map((place) => {
             return (
               <View key={place.id}>
-                {imageLoaded && (
-                  <View>
-                    <PlaceCardImageSkeleton />
-                  </View>
-                )}
                 <PagerView className="w-full h-[400px]">
                   {place.images.map((image, index) => {
                     return (
                       <Image
                         placeholder={blurhash}
+                        transition={1000}
                         onLoad={() => setImageLoaded(false)}
                         key={index}
                         className="rounded-md"

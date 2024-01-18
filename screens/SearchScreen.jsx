@@ -1,10 +1,14 @@
-import { View, Text, TextInput, Pressable } from "react-native";
+import { View, Text, TextInput, Pressable, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { FIRESTORE } from "../firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
+import SearchItem from "../components/SearchItem";
 
 export default function SearchScreen() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [filterText, setFilterText] = useState("");
 
   const getData = async () => {
     const db = FIRESTORE;
@@ -32,9 +36,32 @@ export default function SearchScreen() {
         </Pressable>
         <View className="bg-[#F2F9FE] flex-row items-center justify-start w-[80%] mx-auto px-4 space-x-4 py-2 rounded-full">
           <Ionicons name="search" size={20} color="#B9B9B8" />
-          <TextInput autoFocus={true} placeholder="Find places to go" />
+          <TextInput
+            onChangeText={(val) => setFilterText(val)}
+            autoFocus={true}
+            placeholder="Find places to go"
+          />
         </View>
       </View>
+      <ScrollView className="flex-1 px-4 mt-6">
+        <View className="flex-1">
+          {filterText != "" &&
+            data
+              .filter((place) => place.name.includes(filterText))
+              .map((place) => {
+                return (
+                  <SearchItem
+                    key={place.id}
+                    thumbnail={place.thumbnail}
+                    name={place.name}
+                    id={place.id}
+                    country={place.country}
+                    rating={place.rating}
+                  />
+                );
+              })}
+        </View>
+      </ScrollView>
     </View>
   );
 }
