@@ -1,4 +1,11 @@
-import { View, Text, ScrollView, Pressable, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  TextInput,
+  Dimensions,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import RegionItem from "../components/RegionItem";
 import { useEffect, useMemo, useState } from "react";
@@ -6,8 +13,10 @@ import { collection, getDocs } from "firebase/firestore";
 import { FIRESTORE } from "../firebaseConfig";
 import PlaceCard from "../components/PlaceCard";
 import { useSelector } from "react-redux";
+import LoadingScreen from "./LoadingScreen";
 
 export default function Homepage() {
+  const width = Dimensions.get("screen").width;
   const regions = [
     "All",
     "Europe",
@@ -43,7 +52,11 @@ export default function Homepage() {
       return data;
     } else {
       setFetchControl(false);
-      return data.filter((place) => place.region == clickedRegion);
+      if (data.filter((place) => place.region == clickedRegion) != null) {
+        return data.filter((place) => place.region == clickedRegion);
+      } else {
+        return <Text>Nothing found</Text>;
+      }
     }
   }, [data, clickedRegion]);
 
@@ -51,10 +64,17 @@ export default function Homepage() {
     getData()
       .then(setData(filterData))
       .then(() => setIsLoading(false));
+
+    console.log(width / 2);
   }, []);
 
-  return isLoading && fetchControl ? null : (
-    <ScrollView className="pt-16 flex-1 bg-white">
+  return fetchControl == null || undefined ? (
+    <LoadingScreen />
+  ) : (
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      className="pt-16 flex-1 bg-white"
+    >
       <View>
         <Text
           style={{
@@ -84,27 +104,32 @@ export default function Homepage() {
         </ScrollView>
       </View>
       <View className="flex-1">
-        {console.log(data)}
         <ScrollView
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             flexDirection: "row",
             flexWrap: "wrap",
             gap: 10,
-            marginBottom: 50,
+            marginBottom: 100,
+            flex: 1,
           }}
           className="mt-12 px-5 flex-1"
         >
-          {filterData.map((place) => {
-            return (
-              <PlaceCard
-                key={place.id}
-                id={place.id}
-                name={place.name}
-                thumbnail={place.thumbnail}
-                rating={place.rating}
-              />
-            );
-          })}
+          {filterData != [] ? (
+            filterData.map((place) => {
+              return (
+                <PlaceCard
+                  key={place.id}
+                  id={place.id}
+                  name={place.name}
+                  thumbnail={place.thumbnail}
+                  rating={place.rating}
+                />
+              );
+            })
+          ) : (
+            <Text className="text-4xl">Nothing found!</Text>
+          )}
         </ScrollView>
       </View>
     </ScrollView>
