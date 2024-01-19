@@ -24,9 +24,9 @@ export default function SearchItem({ id, thumbnail, name, country, rating }) {
           <Text className="text-lg font-semibold">{name}</Text>
           <Text className="text-xs text-[#B9B9B8]">{country}</Text>
         </View>
-        <View className="flex-row items-center gap-x-4">
+        <View className="flex-row items-center gap-x-2">
           <AntDesign name="star" size={24} color="yellow" />
-          <Text>{rating}</Text>
+          <Text className="font-bold">{rating}</Text>
         </View>
       </Pressable>
     </Animated.View>

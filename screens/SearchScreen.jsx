@@ -4,8 +4,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { FIRESTORE } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import SearchItem from "../components/SearchItem";
+import LoadingScreen from "./LoadingScreen";
 
-export default function SearchScreen() {
+export default function SearchScreen({ navigation }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filterText, setFilterText] = useState("");
@@ -28,10 +29,12 @@ export default function SearchScreen() {
       }, 1000)
     );
   }, []);
-  return isLoading ? null : (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <View className="flex-1 bg-white pt-16">
       <View className="items-center justify-center px-4 flex-row">
-        <Pressable>
+        <Pressable onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-outline" size={24} color="black" />
         </Pressable>
         <View className="bg-[#F2F9FE] flex-row items-center justify-start w-[80%] mx-auto px-4 space-x-4 py-2 rounded-full">

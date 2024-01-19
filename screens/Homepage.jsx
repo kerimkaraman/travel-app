@@ -53,12 +53,12 @@ export default function Homepage({ navigation }) {
       setFetchControl(false);
       return data;
     } else {
-      setFetchControl(false);
       if (data.filter((place) => place.region == clickedRegion) != null) {
         return data.filter((place) => place.region == clickedRegion);
       } else {
         return <Text>Nothing found</Text>;
       }
+      setFetchControl(false);
     }
   }, [data, clickedRegion]);
 
@@ -92,11 +92,7 @@ export default function Homepage({ navigation }) {
         className="bg-[#F2F9FE] flex-row items-center justify-start w-[90%] mx-auto mt-6 px-4 space-x-4 py-2 rounded-full"
       >
         <Ionicons name="search" size={20} color="#B9B9B8" />
-        <TypeWriterEffect
-          backspaceEffect={true}
-          content="Find places to go"
-          style={{ color: "#B9B9B8" }}
-        />
+        <Text className="text-[#B9B9B8]">Find places to go</Text>
       </Pressable>
       <View className="flex-1">
         <ScrollView

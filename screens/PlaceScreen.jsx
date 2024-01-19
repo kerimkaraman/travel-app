@@ -13,6 +13,7 @@ import { Ionicons, Fontisto, Feather } from "@expo/vector-icons";
 import PlaceCardImageSkeleton from "../components/PlaceCardImageSkeleton";
 import LoadingScreen from "./LoadingScreen";
 import { Image } from "expo-image";
+import PlaceCardScreenSkeleton from "../components/PlaceCardScreenSkeleton";
 
 export default function PlaceScreen({ navigation, route }) {
   const { id } = route.params;
@@ -72,7 +73,9 @@ export default function PlaceScreen({ navigation, route }) {
                     );
                   })}
                 </PagerView>
-                {imageLoaded ? null : (
+                {imageLoaded ? (
+                  <PlaceCardScreenSkeleton />
+                ) : (
                   <View className="mt-6">
                     <View className="flex-row items-center justify-between">
                       <View className="flex-row items-center space-x-4">
@@ -91,7 +94,7 @@ export default function PlaceScreen({ navigation, route }) {
                       </TouchableOpacity>
                     </View>
                     <View className="mt-6">
-                      <Text>{place.description}</Text>
+                      <Text className="leading-5">{place.description}</Text>
                     </View>
                     <View className="mt-6">
                       <Text className="text-xl font-semibold">Facilities</Text>

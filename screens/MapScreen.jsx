@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MapView, { Marker } from "react-native-maps";
+import LoadingScreen from "./LoadingScreen";
 
 export default function MapScreen({ route, navigation }) {
   const [location, setLocation] = useState({
@@ -31,7 +32,7 @@ export default function MapScreen({ route, navigation }) {
       .catch((err) => console.error(err));
   });
   return isLoading ? (
-    <Text>Harita Yükleniyor...</Text>
+    <LoadingScreen />
   ) : (
     <View className="flex-1">
       <MapView

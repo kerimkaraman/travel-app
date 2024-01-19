@@ -56,7 +56,7 @@ export default function SplashScreen({ navigation }) {
           </Text>
         </View>
         <Pressable
-          onPress={() => navigation.navigate("BottomTabs")}
+          onPress={() => navigation.navigate("SignUpScreen")}
           className="bg-[#196EF2] flex-row justify-center items-center gap-x-4 mx-auto px-16 py-4 rounded-full"
         >
           <Text className="text-white text-lg text-center">SHOW ME</Text>
