@@ -10,12 +10,46 @@ import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Entypo } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmail, setPassword } from "../store/userSlice";
+import {
+  setEmail,
+  setId,
+  setNameSurname,
+  setPassword,
+} from "../store/userSlice";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { AUTH, FIRESTORE } from "../firebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 export default function SignInScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const dp = useDispatch();
-  const { email, password } = useSelector((state) => state.user);
+  const { id, namesurname, email, password } = useSelector(
+    (state) => state.user
+  );
+
+  const handleSignIn = async () => {
+    const auth = AUTH;
+    const db = FIRESTORE;
+
+    const q = query(collection(db, "users"), where("email", "==", email));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      dp(setNameSurname(doc.data().namesurname));
+      dp(setId(doc.data().id));
+      console.log(doc.id, " => ", doc.data());
+    });
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        navigation.navigate("BottomTabs");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
 
   return (
     <KeyboardAvoidingView
@@ -42,6 +76,7 @@ export default function SignInScreen({ navigation }) {
           <View className="mt-6 space-y-6">
             <TextInput
               onChangeText={(val) => dp(setEmail(val))}
+              autoCapitalize="none"
               placeholder="E-Mail"
               placeholderTextColor="#B9B9B8"
               className="bg-[#F2F9FE] w-[90%] mx-auto p-3 rounded-lg text-[#B9B9B8]"
@@ -64,7 +99,10 @@ export default function SignInScreen({ navigation }) {
                 />
               </Pressable>
             </View>
-            <Pressable className="bg-[#f69f] w-[90%] mx-auto py-2 rounded-lg">
+            <Pressable
+              onPress={handleSignIn}
+              className="bg-[#f69f] w-[90%] mx-auto py-2 rounded-lg"
+            >
               <Text className="text-white text-lg text-center font-semibold">
                 Sign In
               </Text>

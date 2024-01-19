@@ -14,7 +14,6 @@ import { FIRESTORE } from "../firebaseConfig";
 import PlaceCard from "../components/PlaceCard";
 import { useSelector } from "react-redux";
 import LoadingScreen from "./LoadingScreen";
-import TypeWriterEffect from "react-native-typewriter-effect";
 
 export default function Homepage({ navigation }) {
   const width = Dimensions.get("screen").width;
@@ -35,6 +34,9 @@ export default function Homepage({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
   const [fetchControl, setFetchControl] = useState(true);
   const { clickedRegion } = useSelector((state) => state.regionStyle);
+  const { id, namesurname, email, password } = useSelector(
+    (state) => state.user
+  );
 
   const getData = async () => {
     const db = FIRESTORE;
@@ -66,6 +68,7 @@ export default function Homepage({ navigation }) {
     getData()
       .then(setData(filterData))
       .then(() => setIsLoading(false));
+    console.log(id, namesurname, email, password);
   }, []);
 
   return fetchControl == null || undefined ? (

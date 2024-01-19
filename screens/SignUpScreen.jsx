@@ -84,6 +84,7 @@ export default function SignUpScreen({ navigation }) {
             />
             <TextInput
               onChangeText={(val) => dp(setEmail(val))}
+              autoCapitalize="none"
               placeholder="E-Mail"
               placeholderTextColor="#B9B9B8"
               className="bg-[#F2F9FE] w-[90%] mx-auto p-3 rounded-lg text-[#B9B9B8]"
