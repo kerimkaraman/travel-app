@@ -23,9 +23,12 @@ export const userSlice = createSlice({
     setId: (state, action) => {
       state.id = action.payload;
     },
+    setFavorites: (state, action) => {
+      state.favorites = action.payload;
+    },
   },
 });
 
 export default userSlice.reducer;
-export const { setEmail, setId, setNameSurname, setPassword } =
+export const { setEmail, setId, setNameSurname, setPassword, setFavorites } =
   userSlice.actions;

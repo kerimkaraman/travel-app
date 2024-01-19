@@ -5,6 +5,7 @@ import {
   TextInput,
   Pressable,
   Image,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -12,6 +13,7 @@ import { Entypo } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setEmail,
+  setFavorites,
   setId,
   setNameSurname,
   setPassword,
@@ -28,27 +30,36 @@ export default function SignInScreen({ navigation }) {
   );
 
   const handleSignIn = async () => {
-    const auth = AUTH;
-    const db = FIRESTORE;
-
-    const q = query(collection(db, "users"), where("email", "==", email));
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      dp(setNameSurname(doc.data().namesurname));
-      dp(setId(doc.data().id));
-      console.log(doc.id, " => ", doc.data());
-    });
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        navigation.navigate("BottomTabs");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+    if (email == "" || password == "") {
+      Alert.alert("Warning", "You need to fill all inputs");
+    } else {
+      const auth = AUTH;
+      const db = FIRESTORE;
+      const q = query(collection(db, "users"), where("email", "==", email));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        dp(setNameSurname(doc.data().namesurname));
+        dp(setId(doc.data().id));
+        dp(setFavorites(doc.data().favorites));
       });
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          navigation.navigate("BottomTabs");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          if (errorCode == "auth/invalid-credential") {
+            Alert.alert(
+              "Warning",
+              "Email or password is wrong, please try again!"
+            );
+          }
+          console.log(errorCode, errorMessage);
+        });
+    }
   };
 
   return (

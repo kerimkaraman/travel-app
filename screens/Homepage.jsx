@@ -34,9 +34,6 @@ export default function Homepage({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
   const [fetchControl, setFetchControl] = useState(true);
   const { clickedRegion } = useSelector((state) => state.regionStyle);
-  const { id, namesurname, email, password } = useSelector(
-    (state) => state.user
-  );
 
   const getData = async () => {
     const db = FIRESTORE;
@@ -55,12 +52,16 @@ export default function Homepage({ navigation }) {
       setFetchControl(false);
       return data;
     } else {
-      if (data.filter((place) => place.region == clickedRegion) != null) {
+      if (
+        data.filter((place) => place.region == clickedRegion) !=
+        (null || undefined)
+      ) {
+        setFetchControl(false);
         return data.filter((place) => place.region == clickedRegion);
       } else {
-        return <Text>Nothing found</Text>;
+        setFetchControl(false);
+        return undefined;
       }
-      setFetchControl(false);
     }
   }, [data, clickedRegion]);
 
@@ -68,7 +69,6 @@ export default function Homepage({ navigation }) {
     getData()
       .then(setData(filterData))
       .then(() => setIsLoading(false));
-    console.log(id, namesurname, email, password);
   }, []);
 
   return fetchControl == null || undefined ? (
@@ -78,17 +78,20 @@ export default function Homepage({ navigation }) {
       showsVerticalScrollIndicator={false}
       className="pt-16 flex-1 bg-white"
     >
-      <View>
+      <View className="flex-row justify-between items-center px-6">
         <Text
           style={{
             textShadowColor: "rgba(0, 0, 0, 0.2)",
             textShadowOffset: { width: -1, height: 1 },
             textShadowRadius: 10,
           }}
-          className="text-2xl px-6"
+          className="text-2xl"
         >
           Kompassi
         </Text>
+        <Pressable className="bg-[#ff0000] py-2 px-4 rounded-lg">
+          <Text className="text-xs font-semibold text-white">Log Out</Text>
+        </Pressable>
       </View>
       <Pressable
         onPress={() => navigation.navigate("SearchScreen")}
@@ -121,7 +124,9 @@ export default function Homepage({ navigation }) {
           }}
           className="mt-12 px-5 flex-1"
         >
-          {filterData != [] ? (
+          {filterData == undefined ? (
+            <Text className="text-4xl text-red-900">Nothing found!</Text>
+          ) : (
             filterData.map((place) => {
               return (
                 <PlaceCard
@@ -133,8 +138,6 @@ export default function Homepage({ navigation }) {
                 />
               );
             })
-          ) : (
-            <Text className="text-4xl">Nothing found!</Text>
           )}
         </ScrollView>
       </View>
