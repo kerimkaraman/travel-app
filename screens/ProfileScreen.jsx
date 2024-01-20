@@ -1,17 +1,19 @@
-import { View, Text } from "react-native";
-import React, { useEffect, useMemo, useState } from "react";
+import { View, Text, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
 import { Image } from "expo-image";
 import { useSelector } from "react-redux";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { FIRESTORE } from "../firebaseConfig";
 import LoadingScreen from "./LoadingScreen";
-import PlaceCard from "../components/PlaceCard";
+import ProfilePlaceCard from "../components/ProfilePlaceCard";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function ProfileScreen() {
   const { id, namesurname, email } = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
   const [places, setPlaces] = useState([]);
+  const isFocused = useIsFocused();
 
   const getData = async () => {
     const db = FIRESTORE;
@@ -46,13 +48,13 @@ export default function ProfileScreen() {
           setIsLoading(false);
         }, 2000)
       );
-  }, []);
+  }, [isFocused]);
 
   return isLoading ? (
     <LoadingScreen />
   ) : (
     <View className="bg-white flex-1 pt-16">
-      <View className="border-b border-gray-300 items-center justify-center flex-col gap-y-6 pb-4">
+      <View className="border-b border-gray-300 items-center justify-center flex-col gap-y-4 pb-4">
         <View className="self-start border-2 rounded-full overflow-hidden mx-auto">
           <Image
             style={{ objectFit: "contain" }}
@@ -72,12 +74,26 @@ export default function ProfileScreen() {
           <Text>No description.</Text>
         </View>
       </View>
-      <View>
-        {places
-          .filter((place) => favorites.includes(place.id))
-          .map((place) => {
-            return <Text>{place.name}</Text>;
-          })}
+      <View style={{ flex: 1 }}>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ flex: 1, gap: 20, paddingVertical: 20 }}
+        >
+          {places
+            .filter((place) => favorites.includes(place.id))
+            .map((place) => {
+              return (
+                <ProfilePlaceCard
+                  id={place.id}
+                  key={place.id}
+                  name={place.name}
+                  thumbnail={place.thumbnail}
+                  description={place.description}
+                  rating={place.rating}
+                />
+              );
+            })}
+        </ScrollView>
       </View>
     </View>
   );
