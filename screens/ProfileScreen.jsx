@@ -53,8 +53,8 @@ export default function ProfileScreen() {
   return isLoading ? (
     <LoadingScreen />
   ) : (
-    <View className="bg-white flex-1 pt-16">
-      <View className="border-b border-gray-300 items-center justify-center flex-col gap-y-4 pb-4">
+    <View className="bg-white flex-1">
+      <View className="border-b border-gray-300 items-center justify-center flex-col gap-y-4 pb-4 mt-16">
         <View className="self-start border-2 rounded-full overflow-hidden mx-auto">
           <Image
             style={{ objectFit: "contain" }}
@@ -74,10 +74,15 @@ export default function ProfileScreen() {
           <Text>No description.</Text>
         </View>
       </View>
-      <View style={{ flex: 1 }}>
+      <View className="flex-1">
+        <Text className="text-2xl font-semibold p-2">Favorites</Text>
         <ScrollView
-          className="flex-1"
-          contentContainerStyle={{ flex: 1, gap: 20, paddingVertical: 20 }}
+          showsVerticalScrollIndicator={false}
+          style={{ flex: 1 }}
+          contentContainerStyle={{
+            gap: 20,
+            paddingVertical: 20,
+          }}
         >
           {places
             .filter((place) => favorites.includes(place.id))

@@ -13,7 +13,6 @@ import {
   where,
   getDocs,
   doc,
-  onSnapshot,
   updateDoc,
   arrayUnion,
   arrayRemove,
