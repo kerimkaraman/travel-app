@@ -12,6 +12,7 @@ export default function SplashScreen({ navigation }) {
   const [anStatus, setAnStatus] = useState(false);
   const anTransform = useSharedValue(-50);
   const anOpacity = useSharedValue(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!anStatus) {
@@ -29,6 +30,7 @@ export default function SplashScreen({ navigation }) {
       opacity: anOpacity.value,
     };
   });
+
   return (
     <LinearGradient
       colors={["#30cfd0", "#330867"]}

@@ -41,6 +41,7 @@ export default function ProfileScreen() {
   }
 
   useEffect(() => {
+    setIsLoading(true);
     getFavorites()
       .then(() => getData())
       .then(

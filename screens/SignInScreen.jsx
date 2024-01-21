@@ -92,7 +92,7 @@ export default function SignInScreen({ navigation }) {
               placeholderTextColor="#B9B9B8"
               className="bg-[#F2F9FE] w-[90%] mx-auto p-3 rounded-lg text-[#B9B9B8]"
             />
-            <View className="bg-[#F2F9FE] w-[90%] mx-auto p-3 rounded-lg flex-row justify-between">
+            <View className="bg-[#F2F9FE] w-[90%] mx-auto p-3 rounded-lg flex-row items-center justify-between">
               <TextInput
                 onChangeText={(val) => dp(setPassword(val))}
                 placeholder="Password"

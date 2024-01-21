@@ -102,7 +102,11 @@ export default function PlaceScreen({ navigation, route }) {
   return isLoading ? (
     <LoadingScreen />
   ) : (
-    <ScrollView className="bg-white" keyboardDismissMode="none">
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      className="bg-white"
+      keyboardDismissMode="none"
+    >
       <View style={{ flex: 1, paddingBottom: 50 }}>
         <View className="px-6 mt-16 flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>

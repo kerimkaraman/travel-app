@@ -47,10 +47,6 @@ export default function MapScreen({ route, navigation }) {
         <Pressable className="px-4 pt-16" onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-outline" size={24} color="black" />
         </Pressable>
-        <Marker
-          coordinate={{ latitude: location.lat, longitude: location.long }}
-          image={require("../assets/svg/map-pin.png")}
-        />
       </MapView>
     </View>
   );

@@ -10,13 +10,23 @@ import { Ionicons } from "@expo/vector-icons";
 import RegionItem from "../components/RegionItem";
 import { useEffect, useMemo, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { FIRESTORE } from "../firebaseConfig";
+import { AUTH, FIRESTORE } from "../firebaseConfig";
 import PlaceCard from "../components/PlaceCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "firebase/auth";
 import LoadingScreen from "./LoadingScreen";
+import {
+  setEmail,
+  setId,
+  setNameSurname,
+  setPassword,
+} from "../store/userSlice";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function Homepage({ navigation }) {
   const width = Dimensions.get("screen").width;
+  const dp = useDispatch();
+  const isFocused = useIsFocused();
 
   const regions = [
     "All",
@@ -65,11 +75,24 @@ export default function Homepage({ navigation }) {
     }
   }, [data, clickedRegion]);
 
+  const handleLogOut = () => {
+    const auth = AUTH;
+    signOut(auth)
+      .then(() => {
+        dp(setEmail(""));
+        dp(setPassword(""));
+        dp(setId(""));
+        dp(setNameSurname(""));
+        navigation.navigate("SignInScreen");
+      })
+      .catch((error) => {});
+  };
+
   useEffect(() => {
     getData()
       .then(setData(filterData))
       .then(() => setIsLoading(false));
-  }, []);
+  }, [isFocused]);
 
   return fetchControl == null || undefined ? (
     <LoadingScreen />
@@ -89,7 +112,10 @@ export default function Homepage({ navigation }) {
         >
           Kompassi
         </Text>
-        <Pressable className="bg-[#ff0000] py-2 px-4 rounded-lg">
+        <Pressable
+          onPress={handleLogOut}
+          className="bg-[#ff0000] py-2 px-4 rounded-lg"
+        >
           <Text className="text-xs font-semibold text-white">Log Out</Text>
         </Pressable>
       </View>
