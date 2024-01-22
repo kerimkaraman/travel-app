@@ -110,7 +110,7 @@ export default function PlaceScreen({ navigation, route }) {
       <View style={{ flex: 1, paddingBottom: 50 }}>
         <View className="px-6 mt-16 flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color="black" />
+            <Ionicons name="arrow-back" size={36} color="black" />
           </Pressable>
           <TouchableOpacity
             onPress={handleSave}
