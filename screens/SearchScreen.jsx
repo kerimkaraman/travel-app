@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Pressable, ScrollView } from "react-native";
+import { View, TextInput, Pressable, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { FIRESTORE } from "../firebaseConfig";

@@ -44,9 +44,11 @@ export default function MapScreen({ route, navigation }) {
           longitudeDelta: 0.0421,
         }}
       >
-        <Pressable className="px-4 pt-16" onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back-outline" size={24} color="black" />
-        </Pressable>
+        <View>
+          <Pressable className="px-4 pt-16" onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back-outline" size={24} color="black" />
+          </Pressable>
+        </View>
       </MapView>
     </View>
   );

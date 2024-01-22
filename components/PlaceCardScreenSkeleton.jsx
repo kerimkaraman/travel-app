@@ -1,8 +1,6 @@
 import React from "react";
 import ContentLoader, { Rect, Circle, Path } from "react-content-loader/native";
 import { Dimensions } from "react-native";
-const width = Dimensions.get("screen").width;
-const height = Dimensions.get("screen").height;
 
 const PlaceCardScreenSkeleton = (props) => (
   <ContentLoader viewBox="0 0 400 475" height={475} width={400} {...props}>

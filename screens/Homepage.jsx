@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  Pressable,
-  TextInput,
-  Dimensions,
-} from "react-native";
+import { View, Text, ScrollView, Pressable, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import RegionItem from "../components/RegionItem";
 import { useEffect, useMemo, useState } from "react";
@@ -24,7 +17,6 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 
 export default function Homepage({ navigation }) {
-  const width = Dimensions.get("screen").width;
   const dp = useDispatch();
   const isFocused = useIsFocused();
 
