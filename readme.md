@@ -21,7 +21,7 @@ Kompassi is an application that allows you to get information about the places y
 
 ### Splash Screen (Opening Screen)
 
-<img src="https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/splashscreen.png?raw=true" alt="Splash Screen" width="50%" height="50%">
+<img src="https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/splashscreen.png?raw=true" alt="Splash Screen" width="25%" height="25%">
 
 ### Sign Up Screen
 
