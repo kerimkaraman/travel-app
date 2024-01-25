@@ -25,24 +25,24 @@ Kompassi is an application that allows you to get information about the places y
 
 ### Sign Up Screen
 
-![sign Up Screen](https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/signupscreen.png?raw=true)
+<img src="https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/signunpscreen.png?raw=true" alt="Sign Up Screen" width="25%" height="25%">
 
 ### Sign In Screen
 
-![Sign In Screen](https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/loginscreen.png?raw=true)
+<img src="https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/loginscreen.png?raw=true" alt="sign In Screen" width="25%" height="25%">
 
 ### Homepage Screen
 
-![Homepage Screen](https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/homepage.png?raw=true)
+<img src="https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/homepage.png?raw=true" alt="Homepage Screen" width="25%" height="25%">
 
 ### Profile Screen
 
-![Profile Screen](https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/profilescreen.png?raw=true)
+<img src="https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/profilescreen.png?raw=true" alt="Profile Screen" width="25%" height="25%">
 
 ### Place Screen
 
-![Place Screen](https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/placescreen.png?raw=true)
+<img src="https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/placescreen.png?raw=true" alt="Place Screen" width="25%" height="25%">
 
 ### Map Screen
 
-![Map Screen](https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/mapscreen.png?raw=true)
+<img src="https://github.com/kerimkaraman/travel-app/blob/main/assets/appimages/mapscreen.png?raw=true" alt="Map Screen" width="25%" height="25%">
